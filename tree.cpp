@@ -212,3 +212,62 @@ public:
     }
 };
 
+class Solution10 {
+public:
+    bool hasCycle(ListNode *head) {
+        if(!head || !head->next){
+            return false;
+        }
+        ListNode* slow=head;
+        ListNode* quick=head->next;
+        while (slow!=quick)
+        {
+            if( quick == nullptr || quick->next==nullptr){
+                return false;
+            }
+            slow=slow->next;
+            quick=quick->next->next;
+        }
+        
+        
+    }
+};
+
+class Solution11 {
+public:
+    ListNode *detectCycle(ListNode *head) {
+        ListNode* slow=head;
+        ListNode* quick=head->next;
+        while (quick!=nullptr || quick->next!=nullptr)
+        {
+            
+            if (slow==quick)
+            {
+                break;
+            }
+            slow=slow->next;
+            quick=quick->next->next;
+        }
+        if (quick == nullptr || quick->next == nullptr) return nullptr;
+        int count=1;
+        slow=slow->next;
+        while (slow!=quick)
+        {
+            slow=slow->next;
+            count++;
+        }
+        ListNode* a=head;
+        ListNode* b=head;
+        for (int i = 0; i < count; i++)
+        {
+            a=a->next;
+        }
+        while (a==b)
+        {
+            return a;
+            a=a->next;
+            b=b->next;
+        }
+         
+    }
+};
