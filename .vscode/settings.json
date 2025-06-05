@@ -1,0 +1,13 @@
+{
+    "files.associations": {
+        "*.py": "bat",
+        "*.html": "jinja-html",
+        "iosfwd": "cpp"
+    },
+    "trae.enableCodelens": {
+        "enableInlineUnitTest": false,
+        "enableInlineExplain": false,
+        "enableExploreIde": false,
+        "enableInlineDocumentation": false
+    }
+}
