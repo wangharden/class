@@ -70,4 +70,32 @@ complex* pc=new complex(2,1);
 * 复合
 一个类包含另外一个类，就算是复合
 
-## 转化函数不需要带返回值类型
+## 转化函数不需要带返回值类型(conversion function)
+
+## pointer-like classes 智能指针
+
+以下是智能指针的源代码
+
+```C++
+template<class T>
+class shared_ptr
+{
+public:
+    T& operator*() const //解引用指针，返回对象的引用
+    {return *px; }
+    T* operator->() const  //访问对象成员 返回类型是T*
+    {return px;}
+    
+    // 构造函数
+    explicit shared_ptr(T* p=nullptr) :px(p) {
+        if(px != nullptr){
+            pn =new long(1);
+        } else{
+            p=nullptr;
+        }
+    }
+private:
+    T* px;
+    long* pn;
+}
+```
