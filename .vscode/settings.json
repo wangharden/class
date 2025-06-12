@@ -2,7 +2,8 @@
     "files.associations": {
         "*.py": "bat",
         "*.html": "jinja-html",
-        "iosfwd": "cpp"
+        "iosfwd": "cpp",
+        "new": "cpp"
     },
     "trae.enableCodelens": {
         "enableInlineUnitTest": false,

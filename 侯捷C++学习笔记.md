@@ -65,6 +65,10 @@ complex* pc=new complex(2,1);
 首先，你会获得两个double，也就是8个字节，除了复数本身，还会有8+1个（32+4字节）代码块，以及头尾各一个cookie（这里cookie的作用是记录大小），也就是2×4字节=8字节。总计8+36+8=52。而由于编译器每个内存块是16的倍数，所以会是64个字节。
 如果array new没有和array delete搭配，会造成析构函数调用次数不足，出现内存泄漏
 
+## 虚函数
+
+non-virtual.virtual函数，pure virtual函数。
+
 ## 类与类之间的三大关系
 
 * 复合
@@ -94,8 +98,89 @@ public:
             p=nullptr;
         }
     }
+
+    //拷贝构造
+    explicit shared_ptr(const shared_ptr other ) : px(other.px),pn(other.pn){
+        if(pn!=nullptr){
+            ++(*pn);
+        }
+    }
+
+    //拷贝赋值
+    shared_ptr operator=(const shared_ptr &other){
+        if(this!= &ohter){
+            this=~shared.ptr;
+            px=other.px;
+            pn=other.pn;
+            if(pn!=nullptr){
+                ++(*pn);
+            }
+        }
+        return *this;
+    }
+    //析构函数
+    ~shared_pt(){
+        decrementAndDestroy();
+    }
 private:
     T* px;
     long* pn;
+    void decrementAndDestroy(){
+        if(pn!=nullptr){
+            --(*pn);
+            if(*pn==0){
+                delete px;
+                delete pn;
+            }
+            pn=nullptr;
+            px=nullptr;
+        }
+    }
 }
 ```
+
+## 三个主题
+
+数量不定的模板参数，使用如下：
+
+```C++
+void print(){}
+template<typename T,typename... Types>
+void print(const T& firstArg,const Tpyes&...args){
+    cout<<firstArg<<endl;
+    print(args...);
+}
+```
+
+## vptr和Vtbl
+
+子类当中有父类的成分，所以父类有虚函数，子类一定也有虚函数，虚函数当中有一个指针，继承函数是继承调用权。虚函数的指针指向虚函数表，虚函数表中存放着函数的地址。
+(* p-> vptr[n])(p) // 虚函数的作用路径
+
+```c++
+class A{
+public:
+    virtual void vfun1();
+    virtual void vfun2();
+            void fun1();
+            void fun2();
+private:
+    int m_data1,m_data2;
+};
+class B:public A{
+    public:
+        virtual void vfun1();
+            void fun2();
+    private:
+        m_data3;
+};
+class C:public A{
+    public:
+        virtual void vfun1();
+        void fun2();
+    private:
+        int m_data1,m_data4;
+} ;
+```
+
+静态绑定(call)和动态绑定(通过指针调用，up cast向上转析保证安全，调用的是虚函数)

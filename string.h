@@ -23,8 +23,6 @@ class String{
 inline std::ostream&
 operator << (std::ostream& os, const String& str){
     os << str.get_c_str();
-
-    
     return os;
 }
 
