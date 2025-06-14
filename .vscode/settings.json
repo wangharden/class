@@ -3,7 +3,8 @@
         "*.py": "bat",
         "*.html": "jinja-html",
         "iosfwd": "cpp",
-        "new": "cpp"
+        "new": "cpp",
+        "string_view": "cpp"
     },
     "trae.enableCodelens": {
         "enableInlineUnitTest": false,

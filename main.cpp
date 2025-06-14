@@ -4,13 +4,14 @@
 #include<algorithm>
 #include<ostream>
 #include"IntArray.h"
+#include"MyList.h"
 
 using namespace std;
 
 
 
 int main(){
-    complex c1(2,1);
+    /*complex c1(2,1);
     complex c2;
     c2=c1+c2;
     int i=3/2;
@@ -27,6 +28,11 @@ int main(){
     IntArray arr1(num1,3);
     
     arr=arr1=arr2;
-    cout<<arr;
+    cout<<arr;*/
+
+    MyList<int> list1(2,1);
+    list1.push_tail(3);
+    cout<<list1;
     return 0;
 }
+
