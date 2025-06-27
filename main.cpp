@@ -5,6 +5,7 @@
 #include<ostream>
 #include"IntArray.h"
 #include"MyList.h"
+#include"MyTuple.h"
 
 using namespace std;
 
@@ -30,9 +31,17 @@ int main(){
     arr=arr1=arr2;
     cout<<arr;*/
 
-    MyList<int> list1(2,1);
-    list1.push_tail(3);
-    cout<<list1;
+    MyTuple<int, int, const char*> m(11, 22, "wang");
+    
+    // 测试元素访问
+    cout << get<0>(m) << endl;  // 11
+    cout << get<1>(m) << endl;  // 22
+    cout << get<2>(m) << endl;  // wang
+    
+    // 测试修改元素
+    get<0>(m) = 100;
+    cout << get<0>(m) << endl;  // 100
+    
     return 0;
 }
 

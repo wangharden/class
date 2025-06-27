@@ -89,8 +89,6 @@ private:
 
 public:
 
-
-
 //length的初始值要设为0，因为push函数中有计数器
     MyList(size_t length=0 ,const T& initval=T() ):m_head(nullptr),m_tail(nullptr),m_size(0){
         for (size_t i = 0; i < length ; i++)
@@ -123,25 +121,13 @@ public:
         :m_head(other.m_head),m_tail(other.m_tail),m_size(other.m_size){
             other.m_head=nullptr;
             other.m_tail=nullptr;
-            other.m_tail=0;
+            other.m_size=0;
         }
     
     //移动赋值
     MyList& operator=(MyList&& other)noexcept{
         if(this!=&other){
-            ListNode* current=m_head;
-            while (current!=nullptr)
-            {
-                /* code */
-                ListNode *next=current->next;
-                delete current;
-                current=next;
-            }
-            MyList temp(other);
             swap(*this,other);
-            other.m_head=nullptr;
-            other.m_tail=nullptr;
-            other.m_size=0;
         }
         return *this;
     }
@@ -174,6 +160,7 @@ public:
         m_head=m_tail=nullptr;
         m_size=0;
     }
+    size_t size() const{return m_size;}
     friend void swap(MyList& first, MyList& second) noexcept {
     using std::swap; // 允许 ADL (Argument-Dependent Lookup)
     swap(first.m_head, second.m_head);
